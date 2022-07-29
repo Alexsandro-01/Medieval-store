@@ -40,6 +40,12 @@ async function insert(data: InsertProduct): Promise<Product> {
   return response;
 }
 
+async function getAll(): Promise<Product[]> {
+  const result = await model.getAll();
+  return result;
+}
+
 export default {
   insert,
+  getAll,
 };
