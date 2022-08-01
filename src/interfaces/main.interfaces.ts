@@ -27,6 +27,8 @@ export interface InsertUser {
   password: string
 }
 
+export type LoginUser = Omit<InsertUser, 'classe' | 'level'>;
+
 // Order
 
 export interface OrderWithProducts {

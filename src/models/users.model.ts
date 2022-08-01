@@ -1,6 +1,24 @@
-import { ResultSetHeader } from 'mysql2';
-import { InsertUser, User } from '../interfaces/main.interfaces';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { InsertUser, User, LoginUser } from '../interfaces/main.interfaces';
 import connection from './connection';
+
+async function getUserByNameAndPassword(data: LoginUser): Promise<User> {
+  const sql = `
+  SELECT
+    *
+  FROM
+    Trybesmith.Users
+  WHERE
+    username = ?
+  AND
+    password = ?
+  `;
+
+  const { username, password } = data;
+  const [[result]] = await connection.query<RowDataPacket[]>(sql, [username, password]);
+  
+  return result as User;
+}
 
 async function getById(id: User['id']): Promise<User[]> {
   const sql = `
@@ -36,4 +54,5 @@ async function create(dataUser: InsertUser): Promise<User> {
 export default {
   create,
   getById,
+  getUserByNameAndPassword,
 };

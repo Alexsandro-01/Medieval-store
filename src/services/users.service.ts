@@ -1,6 +1,7 @@
 import Joi from 'joi';
-import { InsertUser } from '../interfaces/main.interfaces';
+import { InsertUser, LoginUser } from '../interfaces/main.interfaces';
 import especificError from '../utils/matchErrors';
+import { throwUnauthorizedError } from '../utils/erroHandler';
 import model from '../models/users.model';
 import authService from './auth.service';
 
@@ -19,6 +20,19 @@ async function isValidInsertUser(data: InsertUser): Promise<void> {
   }
 }
 
+async function isValidLogin(data: LoginUser): Promise<void> {
+  const schema = Joi.object<LoginUser>({
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+  });
+
+  const result = schema.validate(data);
+
+  if (result.error) {
+    especificError(result.error);
+  }
+}
+
 async function create(dataUser: InsertUser): Promise<string> {
   await isValidInsertUser(dataUser);
 
@@ -28,6 +42,20 @@ async function create(dataUser: InsertUser): Promise<string> {
   return token;
 }
 
+async function login(data: LoginUser): Promise<string> {
+  await isValidLogin(data);
+
+  const user = await model.getUserByNameAndPassword(data);
+  if (!user) {
+    throwUnauthorizedError('Username or password invalid');
+  }
+
+  const token = authService.makeToken(user);
+
+  return token;
+}
+
 export default {
   create,
+  login,
 };
