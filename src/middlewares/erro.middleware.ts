@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 const codeStatus: { [statusName: string]: number } = {
   NotFoundError: 404,
   BadRequestError: 400,
+  UnauthorizedError: 401,
   UnprocessableError: 422,
 };
 

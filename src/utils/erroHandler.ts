@@ -15,3 +15,9 @@ export function throwUnprocessableError(message: string): void {
   erro.name = 'UnprocessableError';
   throw erro;
 }
+
+export function throwUnauthorizedError(message: string): void {
+  const erro = new Error(message);
+  erro.name = 'UnauthorizedError';
+  throw erro;
+}
