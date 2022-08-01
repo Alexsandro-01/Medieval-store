@@ -1,3 +1,4 @@
+// Product
 export interface Product {
   id: number,
   name: string,
@@ -10,6 +11,7 @@ export interface InsertProduct {
   amount: string
 }
 
+// User
 export interface User { 
   id: number,
   username: string,
@@ -24,3 +26,13 @@ export interface InsertUser {
   level: number,
   password: string
 }
+
+// Order
+
+export interface OrderWithProducts {
+  id: number,
+  userId: number,
+  productsIds: Array<number>
+}
+
+export type Order = Omit<OrderWithProducts, 'productsIds'>;
