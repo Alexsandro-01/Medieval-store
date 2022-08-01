@@ -11,7 +11,7 @@ async function insert(req: Request, res: Response): Promise<void> {
   res.status(201).json(response);
 }
 
-async function getAll(req: Request, res: Response) {
+async function getAll(req: Request, res: Response): Promise<void> {
   const result = await service.getAll();
 
   res.status(200).json(result);
