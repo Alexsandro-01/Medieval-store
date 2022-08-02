@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import connection from './connection';
 import { OrderWithProducts, Order } from '../interfaces/main.interfaces';
 
@@ -36,7 +36,21 @@ async function getAll() {
   return response;
 }
 
+async function create(userId: number): Promise<number> {
+  const sql = `
+  INSERT INTO
+    Trybesmith.Orders (userId)
+  VALUES
+    (?)
+  `;
+
+  const [result] = await connection.query<ResultSetHeader>(sql, [userId]);
+
+  return result.insertId;
+}
+
 export default {
   getAll,
   getProductsIdFromOrders,
+  create,
 };
