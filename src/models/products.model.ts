@@ -29,7 +29,27 @@ async function getAll(): Promise<Product[]> {
   return rows as Product[];
 }
 
+async function updateOrderId(productsIds: Array<number>, orderId: number) {
+  const sql = `
+  UPDATE
+    Trybesmith.Products
+  SET
+    orderId = ?
+  WHERE
+    id = ?;
+  `;
+
+  const result = await Promise.all(productsIds.map(async (id) => {
+    const [response] = await connection.query(sql, [orderId, id]);
+    
+    return response;
+  }));
+
+  return result;
+}
+
 export default {
   insert,
   getAll,
+  updateOrderId,
 };

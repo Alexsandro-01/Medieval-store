@@ -20,6 +20,21 @@ async function getUserByNameAndPassword(data: LoginUser): Promise<User> {
   return result as User;
 }
 
+async function getUserByName(username: string): Promise<User> {
+  const sql = `
+  SELECT
+    *
+  FROM
+    Trybesmith.Users
+  WHERE
+    username = ?
+  `;
+
+  const [[result]] = await connection.query<RowDataPacket[]>(sql, [username]);
+  
+  return result as User;
+}
+
 async function getById(id: User['id']): Promise<User[]> {
   const sql = `
     SELECT
@@ -55,4 +70,5 @@ export default {
   create,
   getById,
   getUserByNameAndPassword,
+  getUserByName,
 };

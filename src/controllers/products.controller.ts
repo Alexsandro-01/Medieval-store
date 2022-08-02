@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { InsertProduct } from '../interfaces/main.interfaces';
-
 import service from '../services/products.service';
 
 async function insert(req: Request, res: Response): Promise<void> {
