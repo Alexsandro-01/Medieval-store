@@ -5,7 +5,7 @@ import {
   throwUnprocessableError, 
 } from './erroHandler';
 
-export default function especificError(erro: ValidationError) {
+export default function especificError(erro: ValidationError | Error) {
   const { message } = erro;
   
   if (message.includes('is required')) {
@@ -17,6 +17,10 @@ export default function especificError(erro: ValidationError) {
   }
 
   if (message.includes('length must be')) {
+    throwUnprocessableError(message);
+  }
+
+  if (message.includes('must include only')) {
     throwUnprocessableError(message);
   }
 }
