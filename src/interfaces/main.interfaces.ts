@@ -1,3 +1,4 @@
+import { Request } from 'express';
 // Product
 export interface Product {
   id: number,
@@ -20,12 +21,9 @@ export interface User {
   password: string
 }
 
-export interface InsertUser { 
-  username: string,
-  classe: string,
-  level: number,
-  password: string
-}
+export type InsertUser = Omit<User, 'id'>;
+
+export type TokenUser = Omit<InsertUser, 'password'>;
 
 export type LoginUser = Omit<InsertUser, 'classe' | 'level'>;
 
@@ -38,3 +36,12 @@ export interface OrderWithProducts {
 }
 
 export type Order = Omit<OrderWithProducts, 'productsIds'>;
+
+// Meu Request
+export interface RequestWithUser extends Request {
+  user?: User,
+}
+
+export interface ProductsIdsObj {
+  productsIds: Array<number>,
+}
