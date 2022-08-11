@@ -7,6 +7,7 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/index.ts\"",
     "test": "jest",
+    "swagger": "node swagger.ts",
     "posttest": "ts-node tests/recreateDatabase.ts",
     "restore": "ts-node tests/recreateDatabase.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -20,8 +21,10 @@
     "@types/jsonwebtoken": "8.5.8",
     "@types/node": "16.11.31",
     "@types/supertest": "2.0.11",
+    "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "5.3.1",
     "@typescript-eslint/parser": "5.3.1",
+    "concurrently": "^7.3.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "15.0.0",
@@ -42,6 +45,9 @@
     "express-async-errors": "3.1.1",
     "joi": "17.6.0",
     "jsonwebtoken": "8.5.1",
-    "mysql2": "2.3.0"
+    "mysql2": "2.3.0",
+    "swagger-autogen": "^2.21.5",
+    "swagger-ui-express": "^4.5.0",
+    "tsoa": "^4.1.1"
   }
 }
